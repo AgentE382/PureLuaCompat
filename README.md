@@ -16,7 +16,6 @@ First, features that were removed will be re-added. Then, features that were add
 
 * Removed
   * 5.3
-    * Generational mode for the garbage collector
     * `bit32` library
     * Functions `atan2`, `cosh`, `sinh`, `tanh`, `pow`, `frexp`, and `ldexp`
   * 5.2
@@ -37,3 +36,5 @@ First, features that were removed will be re-added. Then, features that were add
     * Function `loadlib`
     * Function `math.mod`
     * Functions `table.foreach` and `table.foreachi`
+* Check on later
+  * Better solution for garbage collector generational mode
