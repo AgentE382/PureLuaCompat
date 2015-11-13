@@ -26,6 +26,10 @@ local function trim(x)
   return x & ALLONES
 end
 
+local function mask(n)
+  return (~((ALLONES << 1) << ((n) - 1)))
+end
+
 local function shift(r, i)
   print(r, i)
   if (i < 0) then  --[[ shift right? ]]
@@ -39,6 +43,15 @@ local function shift(r, i)
     r = trim(r)
   end
   return r
+end
+
+local function fieldargs(f, w)
+  w = w or 1
+  assert(0 <= f, "field cannot be negative")
+  assert(0 < w, "width must be positive")
+  if (f + w > LUA_NBITS) then
+    error("trying to access non-existent bits") end
+  return f
 end
 
 bit32 = {}
@@ -63,9 +76,39 @@ function bit32.band(...)
   end
   return trim(r)
 end
+local band = bit32.band
 
 function bit32.bnot(r)
   return ~trim(r)
+end
+
+function bit32.bor(...)
+  local args = {...}
+  local r = 0
+  for i = 1, #args do
+    r = r | args[i]
+  end
+  return trim(r)
+end
+
+function bit32.btest(...)
+  return band(...) ~= 0
+end
+
+function bit32.bxor(...)
+  local args = {...}
+  local r = 0
+  for i = 1, #args do
+    r = r ~ args[i]
+  end
+  return trim(r)
+end
+
+function bit32.extract(r, f, w)
+  f = fieldargs(f, w)
+  w = w or 1
+  r = (r >> f) & mask(w)
+  return r
 end
 
 return -- option processing function
