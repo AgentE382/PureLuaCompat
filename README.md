@@ -17,7 +17,7 @@ First, features that were removed will be re-added. Then, features that were add
 * Removed
   * 5.3
     * `bit32` library
-    * Functions `atan2`, `cosh`, `sinh`, `tanh`, `pow`, `frexp`, and `ldexp`
+    * Functions `math.atan2`, `math.cosh`, `math.sinh`, `math.tanh`, `math.pow`, `math.frexp`, and `math.ldexp`
   * 5.2
     * Event *tail return* in debug hooks
     * Function `module`
