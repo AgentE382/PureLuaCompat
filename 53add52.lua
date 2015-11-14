@@ -46,7 +46,7 @@ local function shift(r, i)
 end
 
 local function fieldargs(f, w)
-  w = w or 1
+  w = w or 1  -- TODO: Make this use the debug library to change w by reference
   assert(0 <= f, "field cannot be negative")
   assert(0 < w, "width must be positive")
   if (f + w > LUA_NBITS) then
@@ -110,5 +110,13 @@ function bit32.extract(r, f, w)
   r = (r >> f) & mask(w)
   return r
 end
+
+function bit32.replace(r, v, f, w)
+  f = fieldargs(f, w)
+  local m = mask(w)
+  v = v & m  --[[ erase bits outside given width ]]
+  r = (r & ~(m << f)) | (v << f)
+  return r
+}
 
 return -- option processing function
